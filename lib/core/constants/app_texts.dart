@@ -1,9 +1,17 @@
 enum AppText {
-  textHello
+  textMyTodoList,
+  textAddNewTask,
+  textSave,
+  textTaskTile,
+  textDescription,
 }
 
 Map<AppText, String> texts = {
-  AppText.textHello: "Todo App",
+  AppText.textMyTodoList: "My Todo List",
+  AppText.textAddNewTask: "Add New Task",
+  AppText.textSave: "Save",
+  AppText.textTaskTile: "Task Tile",
+  AppText.textDescription: "Description",
 };
 
 extension AppTexts on AppText {
