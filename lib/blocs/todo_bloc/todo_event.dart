@@ -9,11 +9,11 @@ class AddTodo extends TodoEvent {
   AddTodo(this.title, this.description);
 }
 
-// class ToggleTodo extends TodoEvent {
-//   final String id;
+class CompleteTodo extends TodoEvent {
+  final String id;
 
-//   ToggleTodo(this.id);
-// }
+  CompleteTodo(this.id);
+}
 
 class DeleteTodo extends TodoEvent {
   final String id;

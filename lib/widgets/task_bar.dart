@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/blocs/todo_bloc/todo_bloc.dart';
 import 'package:todo_app/blocs/todo_bloc/todo_event.dart';
+import 'package:todo_app/blocs/todo_bloc/todo_state.dart';
 import 'package:todo_app/core/constants/app_colors.dart';
 import 'package:todo_app/data/todo_model.dart';
 import 'package:todo_app/widgets/custom_check_box.dart';
@@ -16,20 +17,18 @@ class TaskBar extends StatefulWidget {
 }
 
 class _TaskBarState extends State<TaskBar> {
-  bool _isCheckboxChecked = false;
-
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       margin: EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: widget.todo.isCompleted? AppColors.lightYellow : AppColors.white,
         boxShadow: [
           BoxShadow(
             color: AppColors.grey,
             spreadRadius: 2,
-            blurRadius: 4,
+            blurRadius: 2,
             offset: Offset(0, 2),
           ),
         ],
@@ -59,22 +58,38 @@ class _TaskBarState extends State<TaskBar> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.todo.title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.black)),
+                  Text(
+                    widget.todo.title,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.black,
+                      decoration: widget.todo.isCompleted ? TextDecoration.lineThrough : TextDecoration.none,
+                    ),
+                  ),
                   SizedBox(
                     width: 250,
                     child: Text(
-                      widget.todo.description, 
+                      widget.todo.description,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       style: TextStyle(
-                        fontSize: 16, 
-                        fontWeight: FontWeight.w400, 
-                        color:AppColors.black
-                      )
-                    )
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.black,
+                        decoration: widget.todo.isCompleted ? TextDecoration.lineThrough : TextDecoration.none,
+                      ),
+                    ),
                   ),
                   SizedBox(height: 4),
-                  Text(widget.todo.time,style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color:AppColors.grey)),
+                  Text(
+                    widget.todo.time,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.grey,
+                    ),
+                  ),
                 ],
               )
             ]
@@ -82,12 +97,24 @@ class _TaskBarState extends State<TaskBar> {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomCheckbox(
-                value: _isCheckboxChecked,
-                onChanged: (bool? newValue) {
-                  setState(() {
-                    _isCheckboxChecked = newValue ?? false;
-                  });
+              BlocBuilder<TodoBloc, TodoState>(
+                builder: (context, state) {
+                  if (state is TodoLoading) {
+                    return SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.deepPurple),
+                      ),
+                    );
+                  }
+                  return CustomCheckbox(
+                    value: widget.todo.isCompleted,
+                    onChanged: (bool? newValue) {
+                      context.read<TodoBloc>().add(CompleteTodo(widget.todo.id));
+                    },
+                  );
                 },
               ),
               IconButton(

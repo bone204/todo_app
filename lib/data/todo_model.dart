@@ -13,6 +13,16 @@ class TodoModel {
     this.isCompleted = false,
   });
 
+  TodoModel copyWith({bool? isCompleted}) {
+    return TodoModel(
+      id: id,
+      title: title,
+      description: description,
+      time: time,
+      isCompleted: isCompleted ?? this.isCompleted,
+    );
+  }
+
   factory TodoModel.fromJson(Map<String, dynamic> json) {
     return TodoModel(
       id: json['id'],

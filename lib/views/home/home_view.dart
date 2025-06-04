@@ -17,12 +17,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final List<String> tasks = [
-    "Task 1",
-    "Task 2",
-    "Task 3",
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,12 +56,39 @@ class _HomeViewState extends State<HomeView> {
                         if(state.todos.isEmpty) {
                           return Container();
                         }
-                         return ListView.builder(
+                        
+                        final incompleteTodos = state.todos.where((todo) => !todo.isCompleted).toList();
+                        final completedTodos = state.todos.where((todo) => todo.isCompleted).toList();
+
+                        return ListView(
                           padding: EdgeInsets.symmetric(horizontal: 4),
-                          itemCount: state.todos.length,
-                          itemBuilder: (context, index) {
-                            return TaskBar(todo: state.todos[index]);
-                          },
+                          children: [
+                            if (incompleteTodos.isNotEmpty) ...[
+                              Text(
+                                'Tasks',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.deepPurple,
+                                ),
+                              ),
+                              SizedBox(height: 16),
+                              ...incompleteTodos.map((todo) => TaskBar(todo: todo)),
+                            ],
+                            if (completedTodos.isNotEmpty) ...[
+                              SizedBox(height: 24),
+                              Text(
+                                'Completed',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.black,
+                                ),
+                              ),
+                              SizedBox(height: 16),
+                              ...completedTodos.map((todo) => TaskBar(todo: todo)),
+                            ],
+                          ],
                         );
                       }
                       return Center(child: CircularProgressIndicator());
