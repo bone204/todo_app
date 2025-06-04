@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/blocs/todo_bloc/todo_bloc.dart';
+import 'package:todo_app/blocs/todo_bloc/todo_event.dart';
 import 'package:todo_app/core/constants/app_colors.dart';
-import 'package:todo_app/core/utils/get_date_time_now.dart';
+import 'package:todo_app/data/todo_model.dart';
 import 'package:todo_app/widgets/custom_check_box.dart';
 
 class TaskBar extends StatefulWidget {
-  final String taskName;
-  final String description;
+  final TodoModel todo;
 
-  const TaskBar({super.key, required this.taskName, required this.description});
+  const TaskBar({super.key, required this.todo});
 
   @override
   State<TaskBar> createState() => _TaskBarState();
@@ -57,11 +59,11 @@ class _TaskBarState extends State<TaskBar> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.taskName, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.black)),
+                  Text(widget.todo.title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.black)),
                   SizedBox(
                     width: 250,
                     child: Text(
-                      widget.description, 
+                      widget.todo.description, 
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       style: TextStyle(
@@ -72,7 +74,7 @@ class _TaskBarState extends State<TaskBar> {
                     )
                   ),
                   SizedBox(height: 4),
-                  Text(getDateTimeNow(),style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color:AppColors.grey)),
+                  Text(widget.todo.time,style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color:AppColors.grey)),
                 ],
               )
             ]
@@ -89,7 +91,9 @@ class _TaskBarState extends State<TaskBar> {
                 },
               ),
               IconButton(
-                onPressed: () {}, 
+                onPressed: () {
+                  context.read<TodoBloc>().add(DeleteTodo(widget.todo.id));
+                }, 
                 icon: Icon(Icons.delete, size: 30),
               ),
             ],

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/blocs/todo_bloc/todo_bloc.dart';
+import 'package:todo_app/blocs/todo_bloc/todo_state.dart';
 import 'package:todo_app/core/constants/app_colors.dart';
 import 'package:todo_app/core/constants/app_texts.dart';
 import 'package:todo_app/core/utils/get_date_time_now.dart';
@@ -6,15 +9,19 @@ import 'package:todo_app/views/add_task/add_task_view.dart';
 import 'package:todo_app/widgets/custom_button.dart';
 import 'package:todo_app/widgets/task_bar.dart';
 
-class HomeView extends StatelessWidget{
-  HomeView({super.key});
+class HomeView extends StatefulWidget {
+  const HomeView({super.key});
 
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   final List<String> tasks = [
     "Task 1",
     "Task 2",
     "Task 3",
   ];
-  
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +56,21 @@ class HomeView extends StatelessWidget{
                 bottom: 0,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: ListView.builder(
-                    padding: EdgeInsets.symmetric(horizontal: 4),
-                    itemCount: tasks.length,
-                    itemBuilder: (context, index) {
-                      return TaskBar(taskName: tasks[index], description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",);
+                  child: BlocBuilder<TodoBloc, TodoState>(
+                    builder: (context, state) {
+                      if (state is TodoLoaded) {
+                        if(state.todos.isEmpty) {
+                          return Container();
+                        }
+                         return ListView.builder(
+                          padding: EdgeInsets.symmetric(horizontal: 4),
+                          itemCount: state.todos.length,
+                          itemBuilder: (context, index) {
+                            return TaskBar(todo: state.todos[index]);
+                          },
+                        );
+                      }
+                      return Center(child: CircularProgressIndicator());
                     },
                   ),
                 ),
@@ -68,7 +85,9 @@ class HomeView extends StatelessWidget{
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AddTaskView(),
+                        builder: (context) => AddTaskView(
+                          todoBloc: context.read<TodoBloc>(),
+                        ),
                       ),
                     );
                   }),

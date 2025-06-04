@@ -2,7 +2,7 @@ class TodoModel {
   final String id;
   final String title;
   final String description;
-  final DateTime time;
+  final String time;
   final bool isCompleted;
 
   TodoModel({
