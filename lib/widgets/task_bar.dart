@@ -99,16 +99,6 @@ class _TaskBarState extends State<TaskBar> {
             children: [
               BlocBuilder<TodoBloc, TodoState>(
                 builder: (context, state) {
-                  if (state is TodoLoading) {
-                    return SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.deepPurple),
-                      ),
-                    );
-                  }
                   return CustomCheckbox(
                     value: widget.todo.isCompleted,
                     onChanged: (bool? newValue) {
