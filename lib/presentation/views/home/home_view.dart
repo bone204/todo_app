@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_app/blocs/todo_bloc/todo_bloc.dart';
-import 'package:todo_app/blocs/todo_bloc/todo_state.dart';
+import 'package:todo_app/presentation/blocs/todo_bloc/todo_bloc.dart';
+import 'package:todo_app/presentation/blocs/todo_bloc/todo_state.dart';
 import 'package:todo_app/core/constants/app_colors.dart';
 import 'package:todo_app/core/constants/app_texts.dart';
 import 'package:todo_app/core/utils/get_date_time_now.dart';
-import 'package:todo_app/views/add_task/add_task_view.dart';
-import 'package:todo_app/widgets/custom_button.dart';
-import 'package:todo_app/widgets/task_bar.dart';
+import 'package:todo_app/presentation/views/add_task/add_task_view.dart';
+import 'package:todo_app/presentation/widgets/custom_button.dart';
+import 'package:todo_app/presentation/widgets/task_bar.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

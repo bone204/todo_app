@@ -1,14 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_app/blocs/todo_bloc/todo_bloc.dart';
-import 'package:todo_app/blocs/todo_bloc/todo_event.dart';
+import 'package:todo_app/presentation/blocs/todo_bloc/todo_bloc.dart';
+import 'package:todo_app/presentation/blocs/todo_bloc/todo_event.dart';
 import 'package:todo_app/core/constants/app_colors.dart';
 import 'package:todo_app/core/constants/app_texts.dart';
-import 'package:todo_app/widgets/custom_button.dart';
-import 'package:todo_app/widgets/custom_icon_button.dart';
-import 'package:todo_app/widgets/custom_textfield.dart';
-import 'package:todo_app/widgets/custom_text_form_field.dart';
+import 'package:todo_app/presentation/widgets/custom_button.dart';
+import 'package:todo_app/presentation/widgets/custom_icon_button.dart';
+import 'package:todo_app/presentation/widgets/custom_textfield.dart';
+import 'package:todo_app/presentation/widgets/custom_text_form_field.dart';
 
 class AddTaskView extends StatefulWidget {
   final TodoBloc todoBloc;

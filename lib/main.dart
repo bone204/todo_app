@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_app/blocs/todo_bloc/todo_bloc.dart';
-import 'package:todo_app/blocs/todo_bloc/todo_event.dart';
-import 'package:todo_app/core/service_locator.dart';
-import 'package:todo_app/views/home/home_view.dart';
+import 'package:todo_app/presentation/blocs/todo_bloc/todo_bloc.dart';
+import 'package:todo_app/presentation/blocs/todo_bloc/todo_event.dart';
+import 'package:todo_app/injection/injection.dart';
+import 'package:todo_app/presentation/views/home/home_view.dart';
 
 void main() {
   setupServiceLocator();

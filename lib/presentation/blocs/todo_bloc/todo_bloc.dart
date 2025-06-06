@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_app/core/service_locator.dart';
+import 'package:todo_app/injection/injection.dart';
 import 'package:todo_app/core/utils/get_date_time_now.dart';
 import 'package:todo_app/data/todo_model.dart';
 import 'package:todo_app/data/todo_repository.dart';
