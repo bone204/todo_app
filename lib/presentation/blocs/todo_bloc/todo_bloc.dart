@@ -16,6 +16,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<AddTodo>(_onAddTodo);
     on<DeleteTodo>(_onDeleteTodo);
     on<CompleteTodo>(_onCompleteTodo);
+    on<EditTodo>(_onEditTodo);
   }
 
   Future<void> _onLoadTodos(LoadTodos event, Emitter<TodoState> emit) async {
@@ -53,6 +54,28 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       final todos = (state as TodoLoaded).todos.where((todo) => todo.id != event.id).toList();
       await getIt<TodoRepository>().saveTodos(todos);
       emit(TodoLoaded(todos));
+    }
+  }
+
+  Future<void> _onEditTodo(EditTodo event, Emitter<TodoState> emit) async {
+    if (state is TodoLoaded) {
+      final currentState = state as TodoLoaded;
+
+      final updatedTodos = currentState.todos.map((todo) {
+        if (todo.id == event.id) {
+          return TodoModel(
+            id: todo.id,
+            title: event.title,
+            description: event.description,
+            time: todo.time,
+            isCompleted: todo.isCompleted,
+          );
+        }
+        return todo;
+      }).toList();
+
+      await getIt<TodoRepository>().saveTodos(updatedTodos);
+      emit(TodoLoaded(updatedTodos));
     }
   }
 }

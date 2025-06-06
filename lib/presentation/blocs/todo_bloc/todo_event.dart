@@ -20,3 +20,11 @@ class DeleteTodo extends TodoEvent {
 
   DeleteTodo(this.id);
 }
+
+class EditTodo extends TodoEvent {
+  final String id;
+  final String title;
+  final String description;
+
+  EditTodo(this.id, this.title, this.description);
+}
