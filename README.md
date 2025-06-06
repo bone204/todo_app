@@ -25,6 +25,8 @@ TodoApp là một ứng dụng Flutter giúp người dùng tạo, theo dõi và
 
 - shared_preferences: Dùng để lưu trữ danh sách công việc cục bộ ở dạng JSON.
 
+- BloC: Kiến trúc quản lý trạng thái giúp tách biệt giao diện (UI) và logic xử lý (business logic).
+
 
 ## Cài đặt
 
