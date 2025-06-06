@@ -45,13 +45,10 @@ class _AddTaskViewState extends State<AddTaskView> {
       return;
     }
 
-    // Gửi sự kiện AddTodo
     widget.todoBloc.add(AddTodo(title, desc));
     
-    // Load lại danh sách todo ở Home
     widget.todoBloc.add(LoadTodos());
     
-    // Quay lại Home
     Navigator.pop(context);
   }
 
