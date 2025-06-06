@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/injection/injection.dart';
 import 'package:todo_app/core/utils/get_date_time_now.dart';
 import 'package:todo_app/data/todo_model.dart';
-import 'package:todo_app/data/todo_repository.dart';
+import 'package:todo_app/domain/todo_repository.dart';
 import 'package:uuid/uuid.dart';
 
 import 'todo_event.dart';
