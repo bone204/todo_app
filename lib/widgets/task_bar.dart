@@ -68,7 +68,7 @@ class _TaskBarState extends State<TaskBar> {
                     ),
                   ),
                   SizedBox(
-                    width: 250,
+                    width: 160,
                     child: Text(
                       widget.todo.description,
                       overflow: TextOverflow.ellipsis,
@@ -119,7 +119,30 @@ class _TaskBarState extends State<TaskBar> {
               ),
               IconButton(
                 onPressed: () {
-                  context.read<TodoBloc>().add(DeleteTodo(widget.todo.id));
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Delete Task'),
+                        content: Text('Are you sure you want to delete this task?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              context.read<TodoBloc>().add(DeleteTodo(widget.todo.id));
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Delete'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 }, 
                 icon: Icon(Icons.delete, size: 30),
               ),

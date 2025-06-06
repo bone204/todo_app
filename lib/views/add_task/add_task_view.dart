@@ -33,7 +33,14 @@ class _AddTaskViewState extends State<AddTaskView> {
 
     if (title.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Tiêu đề không được để trống')),
+        const SnackBar(content: Text('Please enter task title')),
+      );
+      return;
+    }
+
+    if (title.isNotEmpty && desc.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter task description')),
       );
       return;
     }

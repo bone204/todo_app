@@ -64,15 +64,6 @@ class _HomeViewState extends State<HomeView> {
                           padding: EdgeInsets.symmetric(horizontal: 4),
                           children: [
                             if (incompleteTodos.isNotEmpty) ...[
-                              Text(
-                                'Tasks',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.deepPurple,
-                                ),
-                              ),
-                              SizedBox(height: 16),
                               ...incompleteTodos.map((todo) => TaskBar(todo: todo)),
                             ],
                             if (completedTodos.isNotEmpty) ...[

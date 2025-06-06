@@ -35,7 +35,7 @@ class _CustomTextFormfieldState extends State<CustomTextFormfield> {
         TextFormField(
           controller: widget.controller,
           validator: widget.validator,
-          maxLines: 5,
+          maxLines: 4,
           decoration: InputDecoration(
             hintText: widget.hintText,
             border: OutlineInputBorder(
