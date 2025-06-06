@@ -49,6 +49,21 @@ class _EditTaskDialogState extends State<EditTaskDialog> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.todo.isCompleted) {
+      return AlertDialog(
+        title: Text('Task Completed'),
+        content: Text('The task has been successfully completed.'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('OK'),
+          ),
+        ],
+      );
+    }
+
     return AlertDialog(
       title: Text('Edit Task'),
       content: Form(

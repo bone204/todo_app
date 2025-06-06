@@ -49,7 +49,7 @@ class _HomeViewState extends State<HomeView> {
                 top: 160,
                 bottom: 0,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 120),
                   child: BlocBuilder<TodoBloc, TodoState>(
                     builder: (context, state) {
                       if (state is TodoLoaded) {
