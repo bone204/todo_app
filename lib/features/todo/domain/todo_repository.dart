@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:todo_app/injection/injection.dart';
 import 'package:todo_app/core/services/share_preferences_service.dart';
-import 'package:todo_app/data/todo_model.dart';
+import 'package:todo_app/features/todo/data/todo_model.dart';
+import 'package:todo_app/service_locator.dart';
 
 class TodoRepository {
   Future<List<TodoModel>> getTodos() async {

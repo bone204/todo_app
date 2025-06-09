@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_app/presentation/blocs/todo_bloc/todo_bloc.dart';
-import 'package:todo_app/presentation/blocs/todo_bloc/todo_event.dart';
-import 'package:todo_app/presentation/blocs/todo_bloc/todo_state.dart';
+import 'package:todo_app/features/todo/presentation/blocs/todo_bloc/todo_bloc.dart';
+import 'package:todo_app/features/todo/presentation/blocs/todo_bloc/todo_event.dart';
+import 'package:todo_app/features/todo/presentation/blocs/todo_bloc/todo_state.dart';
 import 'package:todo_app/core/constants/app_colors.dart';
-import 'package:todo_app/data/todo_model.dart';
-import 'package:todo_app/presentation/widgets/custom_check_box.dart';
-import 'package:todo_app/presentation/widgets/edit_task_dialog.dart';
+import 'package:todo_app/features/todo/data/todo_model.dart';
+import 'package:todo_app/features/todo/presentation/widgets/custom_check_box.dart';
+import 'package:todo_app/features/todo/presentation/widgets/edit_task_dialog.dart';
 
 class TaskBar extends StatefulWidget {
   final TodoModel todo;

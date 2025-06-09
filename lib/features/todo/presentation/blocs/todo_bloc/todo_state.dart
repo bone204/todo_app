@@ -1,4 +1,4 @@
-import 'package:todo_app/data/todo_model.dart';
+import 'package:todo_app/features/todo/data/todo_model.dart';
 
 abstract class TodoState {}
 
