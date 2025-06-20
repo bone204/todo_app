@@ -4,8 +4,8 @@ import 'package:todo_app/features/todo/presentation/blocs/todo_bloc/todo_bloc.da
 import 'package:todo_app/features/todo/presentation/blocs/todo_bloc/todo_state.dart';
 import 'package:todo_app/core/constants/app_colors.dart';
 import 'package:todo_app/core/constants/app_texts.dart';
-import 'package:todo_app/core/utils/get_date_time_now.dart';
-import 'package:todo_app/features/todo/presentation/views/add_task/add_task_view.dart';
+import 'package:todo_app/core/util/get_date_time_now.dart';
+import 'package:todo_app/features/todo/presentation/pages/add_task/add_task_view.dart';
 import 'package:todo_app/features/todo/presentation/widgets/custom_button.dart';
 import 'package:todo_app/features/todo/presentation/widgets/task_bar.dart';
 
@@ -17,9 +17,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,21 +52,32 @@ class _HomeViewState extends State<HomeView> {
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 120),
                   child: BlocBuilder<TodoBloc, TodoState>(
                     builder: (context, state) {
+                      if (state is TodoLoading) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if(state is TodoError) {
+                        return const Center(child: Icon(Icons.refresh));
+                      }
                       if (state is TodoLoaded) {
-                        if(state.todos.isEmpty) {
+                        print('Todos in UI: ${state.todos}');
+                        if (state.todos == null) print('state.todos is null');
+                        for (var todo in state.todos ?? []) {
+                          print('Todo: $todo, type: ${todo.runtimeType}');
+                        }
+                        if(state.todos!.isEmpty) {
                           return Container();
                         }
                         
-                        final incompleteTodos = state.todos.where((todo) => !todo.isCompleted).toList();
-                        final completedTodos = state.todos.where((todo) => todo.isCompleted).toList();
+                        final incompleteTodos = state.todos?.where((todo) => !todo.isCompleted).toList();
+                        final completedTodos = state.todos?.where((todo) => todo.isCompleted).toList();
 
                         return ListView(
                           padding: EdgeInsets.symmetric(horizontal: 4),
                           children: [
-                            if (incompleteTodos.isNotEmpty) ...[
+                            if (incompleteTodos!.isNotEmpty) ...[
                               ...incompleteTodos.map((todo) => TaskBar(todo: todo)),
                             ],
-                            if (completedTodos.isNotEmpty) ...[
+                            if (completedTodos!.isNotEmpty) ...[
                               SizedBox(height: 24),
                               Text(
                                 'Completed',
@@ -85,7 +93,7 @@ class _HomeViewState extends State<HomeView> {
                           ],
                         );
                       }
-                      return Center(child: CircularProgressIndicator());
+                      return const SizedBox.shrink();
                     },
                   ),
                 ),

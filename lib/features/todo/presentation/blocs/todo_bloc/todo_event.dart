@@ -1,6 +1,10 @@
-abstract class TodoEvent {}
+abstract class TodoEvent {
+  const TodoEvent();
+}
 
-class LoadTodos extends TodoEvent {}
+class LoadTodos extends TodoEvent {
+  const LoadTodos();
+}
 
 class AddTodo extends TodoEvent {
   final String title;

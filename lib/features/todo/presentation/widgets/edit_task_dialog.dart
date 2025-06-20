@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/features/todo/domain/entities/todo.dart';
 import 'package:todo_app/features/todo/presentation/blocs/todo_bloc/todo_bloc.dart';
 import 'package:todo_app/features/todo/presentation/blocs/todo_bloc/todo_event.dart';
-import 'package:todo_app/features/todo/data/todo_model.dart';
 import 'package:todo_app/features/todo/presentation/widgets/custom_textfield.dart';
 
 class EditTaskDialog extends StatefulWidget {
-  final TodoModel todo;
+  final TodoEntity todo;
 
   const EditTaskDialog({super.key, required this.todo});
 

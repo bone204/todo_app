@@ -1,11 +1,27 @@
-import 'package:todo_app/features/todo/data/todo_model.dart';
+import 'package:dio/dio.dart';
+import 'package:equatable/equatable.dart';
+import 'package:todo_app/features/todo/domain/entities/todo.dart';
 
-abstract class TodoState {}
+abstract class TodoState extends Equatable{
+  final List<TodoEntity> ? todos;
+  final DioException ? error;
 
-class TodoInitial extends TodoState {}
+  const TodoState({this.todos, this.error});
+
+  @override
+  List<Object?> get props => [todos, error];
+}
+
+class TodoLoading extends TodoState {
+  const TodoLoading();
+}
 
 class TodoLoaded extends TodoState {
-  final List<TodoModel> todos;
-
-  TodoLoaded(this.todos);
+  const TodoLoaded(List<TodoEntity> todo) : super (todos: todo);
 }
+
+class TodoError extends TodoState {
+  const TodoError(DioException error) : super(error: error);
+}
+
+
